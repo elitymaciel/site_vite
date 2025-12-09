@@ -5,6 +5,10 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react()],
+    preview: {
+        allowedHosts: ['solartechsolutions.com.br'],
+    },
+
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),
