@@ -49,19 +49,19 @@ export default function CTASection() {
                                         <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center">
                                             <Phone className="w-4 h-4 text-blue-400" />
                                         </div>
-                                        <span>(00) 00000-0000</span>
+                                        <span>(94) 9 8423-1245</span>
                                     </div>
                                     <div className="flex items-center gap-4 text-slate-300">
                                         <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center">
                                             <Mail className="w-4 h-4 text-blue-400" />
                                         </div>
-                                        <span>contato@empresa.com.br</span>
+                                        <span>elitymaciel@hotmail.com</span>
                                     </div>
                                     <div className="flex items-center gap-4 text-slate-300">
                                         <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center">
                                             <MapPin className="w-4 h-4 text-blue-400" />
                                         </div>
-                                        <span>Sua Cidade, Estado</span>
+                                        <span>Redenção, PA</span>
                                     </div>
                                 </div>
                             </div>

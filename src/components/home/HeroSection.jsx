@@ -49,8 +49,8 @@ export default function HeroSection() {
                         transition={{ duration: 0.7, delay: 0.2 }}
                         className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
                     >
-                        Energia solar, desenvolvimento de sistemas personalizados e automação comercial
-                        com o sistema <span className="text-blue-400 font-semibold">Link Pro</span>.
+                        Energia solar, desenvolvimento de sistemas personalizados, sites e
+                        <span className="text-blue-400 font-semibold"> Automação comercial</span>.
                         Tecnologia de ponta para o seu sucesso.
                     </motion.p>
 
@@ -99,10 +99,10 @@ export default function HeroSection() {
                         ))}
                     </motion.div>
                 </div>
-            </div>
+            </div >
 
             {/* Bottom Gradient Fade */}
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent" />
-        </section>
+            < div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent" />
+        </section >
     );
 }
