@@ -32,7 +32,7 @@ const services = [
 
 export default function ServicesSection() {
     return (
-        <section className="relative py-24 sm:py-32 bg-slate-950">
+        <section id="servicos" className="relative py-24 sm:py-32 bg-slate-950">
             <div className="max-w-7xl mx-auto px-6">
                 {/* Section Header */}
                 <motion.div

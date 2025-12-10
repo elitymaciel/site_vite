@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sun, Zap, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -61,20 +62,24 @@ export default function HeroSection() {
                         transition={{ duration: 0.7, delay: 0.3 }}
                         className="flex flex-col sm:flex-row gap-4 justify-center items-center"
                     >
-                        <Button
-                            size="lg"
-                            className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-6 text-lg rounded-full shadow-lg shadow-amber-500/25 transition-all duration-300 hover:scale-105"
-                        >
-                            Solicitar Orçamento
-                            <ArrowRight className="ml-2 w-5 h-5" />
-                        </Button>
-                        <Button
-                            variant="outline"
-                            size="lg"
-                            className="bg-transparent border-white/20 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-full backdrop-blur-sm"
-                        >
-                            Conheça o Link Pro
-                        </Button>
+                        <a href="#contato">
+                            <Button
+                                size="lg"
+                                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-6 text-lg rounded-full shadow-lg shadow-amber-500/25 transition-all duration-300 hover:scale-105"
+                            >
+                                Solicitar Orçamento
+                                <ArrowRight className="ml-2 w-5 h-5" />
+                            </Button>
+                        </a>
+                        <Link to="/automacao">
+                            <Button
+                                variant="outline"
+                                size="lg"
+                                className="bg-transparent border-white/20 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-full backdrop-blur-sm"
+                            >
+                                Conheça o Link Pro
+                            </Button>
+                        </Link>
                     </motion.div>
 
                     {/* Stats */}

@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 
 export default function CTASection() {
     return (
-        <section className="relative py-24 sm:py-32 bg-slate-950 overflow-hidden">
+        <section id="contato" className="relative py-24 sm:py-32 bg-slate-950 overflow-hidden">
             {/* Background Elements */}
             <div className="absolute inset-0">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-blue-600/20 to-transparent rounded-full blur-3xl" />
@@ -98,7 +98,7 @@ export default function CTASection() {
                                             <option value="">Selecione o serviço</option>
                                             <option value="solar">Energia Solar</option>
                                             <option value="sistemas">Desenvolvimento de Sistemas</option>
-                                            <option value="linkpro">Link Pro - Automação Comercial</option>
+                                            <option value="linkpro">Automação Comercial</option>
                                         </select>
                                     </div>
 
