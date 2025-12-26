@@ -26,6 +26,7 @@ import ContactForm from "@/components/ContactForm";
 
 export default function AutomacaoPage() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
     const fadeIn = {
         hidden: { opacity: 0, y: 20 },
@@ -116,10 +117,17 @@ export default function AutomacaoPage() {
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                                <Button size="lg" className="h-14 px-8 rounded-lg bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/20 text-lg font-bold">
-                                    Conhecer o Sistema
-                                </Button>
-                                <Button size="lg" variant="outline" className="h-14 px-8 rounded-lg border-2 border-slate-200 text-slate-700 hover:bg-slate-50 text-lg font-semibold">
+                                <a href="#contato">
+                                    <Button size="lg" className="h-14 px-8 rounded-lg bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/20 text-lg font-bold">
+                                        Conhecer o Sistema
+                                    </Button>
+                                </a>
+                                <Button
+                                    size="lg"
+                                    variant="outline"
+                                    className="h-14 px-8 rounded-lg border-2 border-slate-200 text-slate-700 hover:bg-slate-50 text-lg font-semibold"
+                                    onClick={() => setIsVideoModalOpen(true)}
+                                >
                                     Ver Vídeo Demo
                                 </Button>
                             </div>
@@ -268,6 +276,36 @@ export default function AutomacaoPage() {
                     </div>
                 </div>
             </footer>
+
+            {/* Video Modal */}
+            {isVideoModalOpen && (
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+                    onClick={() => setIsVideoModalOpen(false)}
+                >
+                    <div
+                        className="relative w-full max-w-5xl mx-4"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button
+                            onClick={() => setIsVideoModalOpen(false)}
+                            className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+                        >
+                            <X size={32} />
+                        </button>
+                        <div className="relative pt-[56.25%] bg-black rounded-lg overflow-hidden shadow-2xl">
+                            <iframe
+                                className="absolute top-0 left-0 w-full h-full"
+                                src="https://www.youtube.com/embed/7ACT8w2XD1E?autoplay=1&modestbranding=1&rel=0&showinfo=0"
+                                title="Link Pro Demo"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

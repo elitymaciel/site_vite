@@ -15,7 +15,8 @@ import {
     Box,
     Receipt,
     Settings,
-    HelpCircle
+    HelpCircle,
+    Utensils
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,9 +33,9 @@ const trainingModules = [
         title: "Primeiros Passos",
         icon: PlayCircle,
         topics: [
-            { id: "intro", title: "Visão Geral do Link Pro", duration: "5 min", type: "video" },
-            { id: "setup", title: "Configurações Iniciais", duration: "12 min", type: "video" },
-            { id: "users", title: "Cadastrando Usuários e Permissões", duration: "8 min", type: "video" },
+            { id: "users", title: "Cadastro de Usuários", duration: "10 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=6e532b8526552c614670b266f99aa6bb", youtubeId: "" },
+            { id: "suppliers", title: "Cadastro de Fornecedor", duration: "8 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=96755bc2c66906f58a7bb8e6d8435356", youtubeId: "" },
+            { id: "products", title: "Cadastro de Produtos", duration: "15 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=9202f23a32da2fad249f02d73797d092", youtubeId: "" },
         ]
     },
     {
@@ -42,10 +43,10 @@ const trainingModules = [
         title: "Frente de Caixa (PDV)",
         icon: ShoppingBag,
         topics: [
-            { id: "pdv-open", title: "Abertura de Caixa", duration: "3 min", type: "article" },
-            { id: "pdv-sale", title: "Realizando uma Venda", duration: "10 min", type: "video" },
-            { id: "pdv-discount", title: "Aplicando Descontos", duration: "4 min", type: "video" },
-            { id: "pdv-close", title: "Fechamento e Sangria", duration: "6 min", type: "video" },
+            { id: "pdv-sale", title: "Vendas no Caixa", duration: "12 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=74f6af6140523a8e065d8f7d7a7bbab4" },
+            { id: "pdv-commission", title: "Comissão nas Vendas pelo Módulo Caixa", duration: "8 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=ea160217291d6ae4be42a5fa011dc102" },
+            { id: "payment-condition", title: "Condição de Pagamento", duration: "6 min", type: "article", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=b4f99b47c6d4af920699d30e58aea07b" },
+            { id: "card-config", title: "Configuração de Cartão", duration: "5 min", type: "article", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=c9b77980e3d0d1fcad618d996b1f5a36" },
         ]
     },
     {
@@ -53,9 +54,10 @@ const trainingModules = [
         title: "Gestão de Estoque",
         icon: Box,
         topics: [
-            { id: "stock-add", title: "Cadastro de Produtos", duration: "15 min", type: "video" },
-            { id: "stock-xml", title: "Importação via XML", duration: "8 min", type: "video" },
-            { id: "stock-audit", title: "Realizando Inventário", duration: "20 min", type: "article" },
+            { id: "stock-nfe", title: "Nota Fiscal de Entrada (pelo XML)", duration: "15 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=9a6ca0ddd5e11ae29f584f919336ed10" },
+            { id: "stock-suggestion", title: "Sugestão de Compra / Compra", duration: "12 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=585f870bd7755d8e3cabdc8aadab2a0e" },
+            { id: "stock-multistore", title: "Multilojas", duration: "20 min", type: "article", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=e8e55dba75a1bc1e170c8084b7a9ec21" },
+            { id: "stock-labels", title: "Configuração de Etiquetas", duration: "8 min", type: "article", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=0e808d587073f2fa7f78e1b581292922" },
         ]
     },
     {
@@ -63,9 +65,9 @@ const trainingModules = [
         title: "Financeiro",
         icon: BarChart3,
         topics: [
-            { id: "fin-flow", title: "Fluxo de Caixa", duration: "12 min", type: "video" },
-            { id: "fin-pay", title: "Contas a Pagar e Receber", duration: "15 min", type: "video" },
-            { id: "fin-dre", title: "Analisando o DRE", duration: "10 min", type: "article" },
+            { id: "fin-general", title: "Treinamento Financeiro", duration: "18 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=878f5f9e636d573852ea900d162e0430" },
+            { id: "fin-boleto", title: "Emissão de Boleto", duration: "10 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=9ed12501ccdde77b4ec1e7b90e1ee896" },
+            { id: "fin-costs", title: "Gerência de Custos", duration: "15 min", type: "article", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=51f2913b6a5c2d9611d30be9667c7ac9" },
         ]
     },
     {
@@ -73,15 +75,47 @@ const trainingModules = [
         title: "Fiscal",
         icon: Receipt,
         topics: [
-            { id: "nfe-emit", title: "Emitindo NFe", duration: "8 min", type: "video" },
-            { id: "taxes", title: "Configuração de Impostos", duration: "25 min", type: "video" },
+            { id: "fiscal-config", title: "Configurações Fiscais", duration: "20 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=51bea856310d25e687003e424b27348f" },
+            { id: "fiscal-nfse", title: "Emissão de NFS-e", duration: "12 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=36e80ad911d3dfc3cde90c9ac9f8f859" },
+            { id: "fiscal-nfe-config", title: "Configurações da Nota Fiscal de Entrada", duration: "15 min", type: "article", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=f8e373ffbb1df95a49c9cbb471c74ccd" },
+        ]
+    },
+    {
+        id: "sales",
+        title: "Vendas e Negociação",
+        icon: Settings,
+        topics: [
+            { id: "sales-config", title: "Configurações da Negociação", duration: "10 min", type: "article", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=b5a6b9d6675849853b3e8ac7aded4b75" },
+            { id: "sales-presale", title: "Pré-vendas no Negociação", duration: "12 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=5fb255f6940aa6a7ed228ae3c4c8eab7" },
+            { id: "sales-conditional", title: "Pedido Condicional para o Cliente", duration: "8 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=5a24e786417e393a8b9644ab792fd41a" },
+        ]
+    },
+    {
+        id: "restaurant",
+        title: "Bares e Restaurantes",
+        icon: Utensils,
+        topics: [
+            { id: "restaurant-service", title: "Atendimento para Bares e Restaurantes", duration: "15 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=e0a9abd00797e48642e0aefaab15fab8" },
+            { id: "restaurant-commission", title: "Comissão no Atendimento", duration: "10 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=96a92231b4503cb6b252ede8b6bf6035" },
+            { id: "restaurant-recipe", title: "Produto Composto (Ficha Técnica)", duration: "12 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=fae8f56543deb72a942ff9f87b873baf" },
+        ]
+    },
+    {
+        id: "advanced",
+        title: "Recursos Avançados",
+        icon: HelpCircle,
+        topics: [
+            { id: "adv-loyalty", title: "Cartão Fidelidade", duration: "10 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=2b9cdebb444dbb2fe8380860104f0573" },
+            { id: "adv-os", title: "Ordem de Serviço (OS)", duration: "18 min", type: "video", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=ea18db81fd6a9f1b2c49f664d370ad67" },
+            { id: "adv-import", title: "Importador do Sistema Link", duration: "15 min", type: "article", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=3d1360dece724db43ea45465528035a6" },
+            { id: "adv-tray", title: "Integração Sistema Link e Tray", duration: "20 min", type: "article", url: "https://cervantes.srv.br/lz/knowledgebase.php?article=a9ecf6120021eca9f169f5f829625cd1" },
         ]
     },
 ];
 
 export default function TreinamentosPage() {
     const [activeModule, setActiveModule] = useState("getting-started");
-    const [activeTopic, setActiveTopic] = useState("intro");
+    const [activeTopic, setActiveTopic] = useState("users");
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -155,8 +189,8 @@ export default function TreinamentosPage() {
                                         key={module.id}
                                         onClick={() => setActiveModule(module.id)}
                                         className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeModule === module.id
-                                                ? 'bg-primary/10 text-primary'
-                                                : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                            ? 'bg-primary/10 text-primary'
+                                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                                             }`}
                                     >
                                         <module.icon size={18} />
@@ -175,8 +209,8 @@ export default function TreinamentosPage() {
                                             key={topic.id}
                                             onClick={() => setActiveTopic(topic.id)}
                                             className={`w-full flex items-start gap-3 px-3 py-3 rounded-lg text-sm transition-all border ${activeTopic === topic.id
-                                                    ? 'bg-background border-primary/20 shadow-sm'
-                                                    : 'bg-transparent border-transparent hover:bg-muted/50 text-muted-foreground'
+                                                ? 'bg-background border-primary/20 shadow-sm'
+                                                : 'bg-transparent border-transparent hover:bg-muted/50 text-muted-foreground'
                                                 }`}
                                         >
                                             <div className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${activeTopic === topic.id ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'
@@ -228,27 +262,35 @@ export default function TreinamentosPage() {
                         </div>
 
                         <div className="space-y-6">
-                            {/* Video Player Placeholder */}
-                            <div className="aspect-video bg-black rounded-xl overflow-hidden shadow-2xl relative group">
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer">
-                                        <PlayCircle size={32} className="text-white fill-white" />
-                                    </div>
-                                </div>
-                                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                                    <div className="flex items-center justify-between text-white">
-                                        <span className="text-sm font-medium">0:00 / {currentTopic.duration}</span>
-                                        <div className="flex gap-2">
-                                            <Settings size={16} className="cursor-pointer hover:text-primary" />
-                                            <span className="text-xs border border-white/30 rounded px-1 cursor-pointer hover:bg-white/20">HD</span>
+                            {/* Video/Content Player */}
+                            <div className="aspect-video bg-black rounded-xl overflow-hidden shadow-2xl relative">
+                                {currentTopic.youtubeId ? (
+                                    // YouTube Embed
+                                    <iframe
+                                        src={`https://www.youtube.com/embed/${currentTopic.youtubeId}?rel=0&modestbranding=1`}
+                                        title={currentTopic.title}
+                                        className="w-full h-full border-0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                ) : currentTopic.url ? (
+                                    // Knowledge Base Page Embed
+                                    <iframe
+                                        src={currentTopic.url}
+                                        title={currentTopic.title}
+                                        className="w-full h-full border-0 bg-white"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                ) : (
+                                    // No Content Available
+                                    <div className="w-full h-full bg-black flex items-center justify-center">
+                                        <div className="text-center text-white">
+                                            <PlayCircle size={48} className="mx-auto mb-4 opacity-50" />
+                                            <p className="text-sm">Conteúdo não disponível</p>
                                         </div>
                                     </div>
-                                    <div className="w-full h-1 bg-white/20 rounded-full mt-3 cursor-pointer group/progress">
-                                        <div className="h-full bg-primary w-0 rounded-full relative group-hover/progress:bg-accent">
-                                            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover/progress:opacity-100 shadow"></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                )}
                             </div>
 
                             <div className="flex flex-col md:flex-row gap-8">
