@@ -3,13 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 
-export default function ContactForm() {
+export default function ContactForm({ showService = true, source = '' }) {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
         company: '',
-        service: ''
+        company: '',
+        service: source
     });
 
     const [status, setStatus] = useState({
@@ -48,19 +49,34 @@ export default function ContactForm() {
         setStatus({ type: 'loading', message: '' });
 
         try {
-            // ALTERE ESTA URL PARA A URL DA SUA API EXTERNA
-            const API_URL = 'https://sua-api-externa.com/api/contatos';
+            // Evolution API Integration
+            const API_URL = 'https://evolutionapi.solartechsolutions.com.br/message/sendText/maciel_erp';
+            const API_KEY = '9E49B7510753-49F9-BA8B-C7B1274BC97C';
+            const TARGET_NUMBER = '5594984231245';
+
+            const message = `🚀 *Novo Lead - ${source || 'Site'}*\n\n` +
+                `👤 *Nome:* ${formData.name}\n` +
+                `📧 *Email:* ${formData.email}\n` +
+                `📱 *Telefone:* ${formData.phone}\n` +
+                `🏢 *Empresa:* ${formData.company || 'Não informada'}\n` +
+                `🛠️ *Serviço/Fonte:* ${formData.service || 'Geral'}`;
 
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'apikey': API_KEY
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    "number": TARGET_NUMBER,
+                    "text": message
+                }),
             });
 
             if (!response.ok) {
-                throw new Error('Erro ao enviar os dados');
+                const errorData = await response.json().catch(() => ({}));
+                console.error('Evolution API Error:', errorData);
+                throw new Error('Erro ao enviar os dados via WhatsApp');
             }
 
             setStatus({
@@ -145,32 +161,34 @@ export default function ContactForm() {
                     />
                 </div>
 
-                <div className="w-full">
-                    <select
-                        name="service"
-                        value={formData.service}
-                        onChange={handleChange}
-                        className="w-full h-14 rounded-lg px-4 cursor-pointer focus:outline-none transition-all font-medium"
-                        disabled={status.type === 'loading'}
-                        style={{
-                            backgroundColor: '#ffffff',
-                            color: '#0f172a',
-                            border: '2px solid rgba(255, 255, 255, 0.3)'
-                        }}
-                    >
-                        <option value="" disabled style={{ color: '#64748b' }}>Selecione o serviço desejado</option>
-                        <option value="energia-solar" style={{ color: '#0f172a' }}>Energia Solar</option>
-                        <option value="desenvolvimento-sistemas" style={{ color: '#0f172a' }}>Desenvolvimento de Sistemas</option>
-                        <option value="automacao-comercial" style={{ color: '#0f172a' }}>Automação Comercial (Link Pro)</option>
-                        <option value="sites" style={{ color: '#0f172a' }}>Desenvolvimento de Sites</option>
-                        <option value="consultoria" style={{ color: '#0f172a' }}>Consultoria Técnica</option>
-                    </select>
-                </div>
+                {showService && (
+                    <div className="w-full">
+                        <select
+                            name="service"
+                            value={formData.service}
+                            onChange={handleChange}
+                            className="w-full h-14 rounded-lg px-4 cursor-pointer focus:outline-none transition-all font-medium"
+                            disabled={status.type === 'loading'}
+                            style={{
+                                backgroundColor: '#ffffff',
+                                color: '#0f172a',
+                                border: '2px solid rgba(255, 255, 255, 0.3)'
+                            }}
+                        >
+                            <option value="" disabled style={{ color: '#64748b' }}>Selecione o serviço desejado</option>
+                            <option value="energia-solar" style={{ color: '#0f172a' }}>Energia Solar</option>
+                            <option value="desenvolvimento-sistemas" style={{ color: '#0f172a' }}>Desenvolvimento de Sistemas</option>
+                            <option value="automacao-comercial" style={{ color: '#0f172a' }}>Automação Comercial (Link Pro)</option>
+                            <option value="sites" style={{ color: '#0f172a' }}>Desenvolvimento de Sites</option>
+                            <option value="consultoria" style={{ color: '#0f172a' }}>Consultoria Técnica</option>
+                        </select>
+                    </div>
+                )}
 
                 <Button
                     type="submit"
                     size="lg"
-                    className="h-14 px-8 bg-accent hover:bg-accent/90 text-white font-bold rounded-lg w-full shadow-lg shadow-black/10 cursor-pointer"
+                    className="h-14 px-8 bg-accent hover:bg-accent/90 text-black font-bold rounded-lg w-full shadow-lg shadow-black/10 cursor-pointer"
                     disabled={status.type === 'loading'}
                 >
                     {status.type === 'loading' ? (
