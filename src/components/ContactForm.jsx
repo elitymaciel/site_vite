@@ -49,34 +49,24 @@ export default function ContactForm({ showService = true, source = '' }) {
         setStatus({ type: 'loading', message: '' });
 
         try {
-            // Evolution API Integration
-            const API_URL = 'https://evolutionapi.solartechsolutions.com.br/message/sendText/maciel_erp';
-            const API_KEY = '9E49B7510753-49F9-BA8B-C7B1274BC97C';
-            const TARGET_NUMBER = '5594984231245';
+            // Secure Proxy Integration (using PHP bridge)
+            const PROXY_URL = '/send-message.php';
 
-            const message = `🚀 *Novo Lead - ${source || 'Site'}*\n\n` +
-                `👤 *Nome:* ${formData.name}\n` +
-                `📧 *Email:* ${formData.email}\n` +
-                `📱 *Telefone:* ${formData.phone}\n` +
-                `🏢 *Empresa:* ${formData.company || 'Não informada'}\n` +
-                `🛠️ *Serviço/Fonte:* ${formData.service || 'Geral'}`;
-
-            const response = await fetch(API_URL, {
+            const response = await fetch(PROXY_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'apikey': API_KEY
                 },
                 body: JSON.stringify({
-                    "number": TARGET_NUMBER,
-                    "text": message
+                    ...formData,
+                    source: source || 'Site',
                 }),
             });
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                console.error('Evolution API Error:', errorData);
-                throw new Error('Erro ao enviar os dados via WhatsApp');
+                console.error('Proxy Error:', errorData);
+                throw new Error('Erro ao processar sua solicitação');
             }
 
             setStatus({
